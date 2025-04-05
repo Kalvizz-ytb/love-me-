@@ -100,18 +100,22 @@
     function moveButton() {
       const buttonWidth = noBtn.offsetWidth;
       const buttonHeight = noBtn.offsetHeight;
-      const maxX = window.innerWidth - buttonWidth - 20;
-      const maxY = window.innerHeight - buttonHeight - 20;
+      const padding = 20;
+
+      // Calcule la zone dispo en restant à l'intérieur de l'écran
+      const maxX = window.innerWidth - buttonWidth - padding;
+      const maxY = window.innerHeight - buttonHeight - padding;
 
       const x = Math.floor(Math.random() * maxX);
       const y = Math.floor(Math.random() * maxY);
 
       noBtn.style.left = `${x}px`;
       noBtn.style.top = `${y}px`;
-      noBtn.style.transform = "scale(1.1) rotate(5deg)";
+
+      noBtn.style.transform = "scale(1.1)";
       setTimeout(() => {
         noBtn.style.transform = "scale(1)";
-      }, 200);
+      }, 150);
     }
 
     noBtn.addEventListener("mouseover", moveButton);

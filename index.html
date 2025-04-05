@@ -22,28 +22,30 @@
     }
 
     .question-container {
-      text-align: center;
       position: relative;
-      max-width: 90%;
-      width: 400px;
-      padding: 30px;
+      width: 90%;
+      max-width: 400px;
+      height: 500px;
       background: #fff;
       border-radius: 20px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      padding: 20px;
+      overflow: hidden;
     }
 
     img {
       width: 100%;
-      max-width: 250px;
+      max-width: 230px;
       border-radius: 15px;
       box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     h1 {
       font-size: 1.8rem;
       color: #ff5e7e;
-      margin-bottom: 30px;
+      margin: 10px 0 30px;
     }
 
     .button {
@@ -58,6 +60,7 @@
       position: relative;
       transition: 0.2s ease;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 2;
     }
 
     .button:hover {
@@ -96,17 +99,20 @@
 
     @media (max-width: 500px) {
       h1 {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
       }
       .button {
         font-size: 0.9rem;
-        padding: 10px 20px;
+        padding: 10px 22px;
+      }
+      .question-container {
+        height: 480px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="question-container">
+  <div class="question-container" id="container">
     <img src="https://img.freepik.com/photos-premium/amants-pour-toujours_1032630-2741.jpg" alt="Cute image" />
     <h1>Do you love me? 😳</h1>
     <button id="yesBtn" class="button">Yes 💕</button>
@@ -118,17 +124,37 @@
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
     const popup = document.getElementById("popupText");
+    const container = document.getElementById("container");
 
-    function moveButton() {
+    // Initial position du bouton
+    noBtn.style.left = "60%";
+    noBtn.style.top = "60%";
+
+    function moveButton(isClick = false) {
       const buttonWidth = noBtn.offsetWidth;
       const buttonHeight = noBtn.offsetHeight;
-      const padding = 30;
+      const padding = 10;
 
-      const maxX = window.innerWidth - buttonWidth - padding;
-      const maxY = window.innerHeight - buttonHeight - padding;
+      const containerWidth = container.clientWidth;
+      const containerHeight = container.clientHeight;
 
-      const x = Math.floor(Math.random() * maxX);
-      const y = Math.floor(Math.random() * maxY);
+      let x, y;
+
+      if (isClick) {
+        const currentX = noBtn.offsetLeft;
+        const currentY = noBtn.offsetTop;
+        const moveRange = 100;
+
+        x = currentX + (Math.random() * moveRange - moveRange / 2);
+        y = currentY + (Math.random() * moveRange - moveRange / 2);
+      } else {
+        x = Math.random() * (containerWidth - buttonWidth - padding * 2);
+        y = Math.random() * (containerHeight - buttonHeight - padding * 2);
+      }
+
+      // On reste dans les limites du container
+      x = Math.max(padding, Math.min(x, containerWidth - buttonWidth - padding));
+      y = Math.max(padding, Math.min(y, containerHeight - buttonHeight - padding));
 
       noBtn.style.left = `${x}px`;
       noBtn.style.top = `${y}px`;
@@ -139,10 +165,14 @@
       }, 150);
     }
 
-    noBtn.addEventListener("mouseover", moveButton);
+    noBtn.addEventListener("mouseover", () => moveButton(false));
     noBtn.addEventListener("touchstart", (e) => {
       e.preventDefault();
-      moveButton();
+      moveButton(false);
+    });
+    noBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      moveButton(true);
     });
 
     yesBtn.addEventListener("click", () => {

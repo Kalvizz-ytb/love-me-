@@ -4,54 +4,65 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Do you love me?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
     }
+
     body {
-      background-color: #fff0f5;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      height: 100vh;
       margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffe6ec, #fcd1d1);
+      height: 100vh;
       overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .question-container {
       text-align: center;
       position: relative;
-      width: 100%;
-      max-width: 600px;
-      height: 100%;
+      max-width: 90%;
+      width: 400px;
+      padding: 30px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     }
 
     img {
-      width: 180px;
-      margin-top: 20px;
+      width: 100%;
+      max-width: 250px;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      margin-bottom: 20px;
     }
 
     h1 {
-      font-size: 2em;
-      color: #333;
-      margin: 30px 20px 40px;
+      font-size: 1.8rem;
+      color: #ff5e7e;
+      margin-bottom: 30px;
     }
 
     .button {
-      padding: 12px 30px;
+      padding: 12px 28px;
       border: none;
-      border-radius: 25px;
-      background-color: #ff6f91;
-      color: white;
-      font-size: 18px;
-      margin: 20px;
+      border-radius: 30px;
+      background: #ff6f91;
+      color: #fff;
+      font-size: 1rem;
+      margin: 15px;
       cursor: pointer;
       position: relative;
-      z-index: 1;
-      transition: transform 0.3s ease;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .button:hover {
+      transform: scale(1.05);
+      background: #ff577a;
     }
 
     #noBtn {
@@ -60,10 +71,10 @@
 
     .popup {
       display: none;
-      font-size: 1.5em;
-      margin-top: 30px;
-      color: #e75480;
-      animation: fadeIn 1s ease forwards;
+      font-size: 1.3rem;
+      margin-top: 20px;
+      color: #ff4f84;
+      animation: fadeIn 0.8s ease forwards;
     }
 
     @keyframes fadeIn {
@@ -71,25 +82,36 @@
       100% { opacity: 1; transform: scale(1); }
     }
 
+    .heart {
+      display: inline-block;
+      color: #ff4f84;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
     @media (max-width: 500px) {
       h1 {
-        font-size: 1.5em;
+        font-size: 1.4rem;
       }
-
       .button {
-        font-size: 16px;
-        padding: 10px 24px;
+        font-size: 0.9rem;
+        padding: 10px 20px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="question-container" id="questionContainer">
+  <div class="question-container">
     <img src="https://img.freepik.com/photos-premium/amants-pour-toujours_1032630-2741.jpg" alt="Cute image" />
-    <h1>Do you love me?</h1>
-    <button id="yesBtn" class="button">Yes</button>
-    <button id="noBtn" class="button">No</button>
-    <div class="popup" id="popupText">Awww, I love you too! 💖</div>
+    <h1>Do you love me? 😳</h1>
+    <button id="yesBtn" class="button">Yes 💕</button>
+    <button id="noBtn" class="button">No 🙈</button>
+    <div class="popup" id="popupText">Awww, I love you too! <span class="heart">💖</span></div>
   </div>
 
   <script>
@@ -100,9 +122,8 @@
     function moveButton() {
       const buttonWidth = noBtn.offsetWidth;
       const buttonHeight = noBtn.offsetHeight;
-      const padding = 20;
+      const padding = 30;
 
-      // Calcule la zone dispo en restant à l'intérieur de l'écran
       const maxX = window.innerWidth - buttonWidth - padding;
       const maxY = window.innerHeight - buttonHeight - padding;
 

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Do you love me?</title>
+  <style>
+    body {
+      background-color: #ffe6eb;
+      font-family: "Comic Sans MS", sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .question-container {
+      text-align: center;
+      position: relative;
+    }
+    img {
+      width: 150px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      background-color: #ff6f91;
+      color: white;
+      font-size: 18px;
+      margin: 10px;
+      cursor: pointer;
+      position: relative;
+    }
+    #noBtn {
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <div class="question-container" id="questionContainer">
+    <img src="https://i.pinimg.com/originals/5c/89/10/5c89100df24e6cf0d7ef79d24b52b372.png" alt="Cute image" />
+    <h1>Do you love me?</h1>
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const questionContainer = document.getElementById("questionContainer");
+
+    noBtn.addEventListener("mouseover", () => {
+      const newX = Math.floor(Math.random() * (window.innerWidth - 100));
+      const newY = Math.floor(Math.random() * (window.innerHeight - 50));
+      noBtn.style.left = `${newX}px`;
+      noBtn.style.top = `${newY}px`;
+    });
+
+    yesBtn.addEventListener("click", () => {
+      alert("Awww, I love you too!");
+    });
+  </script>
+</body>
+</html>

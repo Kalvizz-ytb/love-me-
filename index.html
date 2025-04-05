@@ -5,41 +5,81 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Do you love me?</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
-      background-color: #ffe6eb;
-      font-family: "Comic Sans MS", sans-serif;
+      background-color: #fff0f5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
+      flex-direction: column;
       height: 100vh;
       margin: 0;
+      overflow: hidden;
     }
+
     .question-container {
       text-align: center;
       position: relative;
+      width: 100%;
+      max-width: 600px;
+      height: 100%;
     }
+
     img {
-      width: 150px;
-      margin-bottom: 20px;
+      width: 180px;
+      margin-top: 20px;
     }
+
     h1 {
-      font-size: 28px;
-      margin-bottom: 30px;
+      font-size: 2em;
+      color: #333;
+      margin: 30px 20px 40px;
     }
-    button {
-      padding: 10px 20px;
+
+    .button {
+      padding: 12px 30px;
       border: none;
-      border-radius: 20px;
+      border-radius: 25px;
       background-color: #ff6f91;
       color: white;
       font-size: 18px;
-      margin: 10px;
+      margin: 20px;
       cursor: pointer;
       position: relative;
+      z-index: 1;
+      transition: transform 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
+
     #noBtn {
       position: absolute;
+    }
+
+    .popup {
+      display: none;
+      font-size: 1.5em;
+      margin-top: 30px;
+      color: #e75480;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 1.5em;
+      }
+
+      .button {
+        font-size: 16px;
+        padding: 10px 24px;
+      }
     }
   </style>
 </head>
@@ -47,24 +87,41 @@
   <div class="question-container" id="questionContainer">
     <img src="https://i.pinimg.com/originals/5c/89/10/5c89100df24e6cf0d7ef79d24b52b372.png" alt="Cute image" />
     <h1>Do you love me?</h1>
-    <button id="yesBtn">Yes</button>
-    <button id="noBtn">No</button>
+    <button id="yesBtn" class="button">Yes</button>
+    <button id="noBtn" class="button">No</button>
+    <div class="popup" id="popupText">Awww, I love you too! 💖</div>
   </div>
 
   <script>
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
-    const questionContainer = document.getElementById("questionContainer");
+    const popup = document.getElementById("popupText");
 
-    noBtn.addEventListener("mouseover", () => {
-      const newX = Math.floor(Math.random() * (window.innerWidth - 100));
-      const newY = Math.floor(Math.random() * (window.innerHeight - 50));
-      noBtn.style.left = `${newX}px`;
-      noBtn.style.top = `${newY}px`;
+    function moveButton() {
+      const buttonWidth = noBtn.offsetWidth;
+      const buttonHeight = noBtn.offsetHeight;
+      const maxX = window.innerWidth - buttonWidth - 20;
+      const maxY = window.innerHeight - buttonHeight - 20;
+
+      const x = Math.floor(Math.random() * maxX);
+      const y = Math.floor(Math.random() * maxY);
+
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+      noBtn.style.transform = "scale(1.1) rotate(5deg)";
+      setTimeout(() => {
+        noBtn.style.transform = "scale(1)";
+      }, 200);
+    }
+
+    noBtn.addEventListener("mouseover", moveButton);
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      moveButton();
     });
 
     yesBtn.addEventListener("click", () => {
-      alert("Awww, I love you too!");
+      popup.style.display = "block";
     });
   </script>
 </body>
